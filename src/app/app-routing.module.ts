@@ -6,12 +6,19 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {VerifyEmailComponent} from "./components/verify-email/verify-email.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
+import { TableViewComponent } from './table-view/table-view.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  // Root
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+
+  // App
+  { path: 'dashboard', component: DashboardComponent},//, canActivate: [AuthGuard] },
+  { path: 'table', component: TableViewComponent },
+
+  // Auth
   { path: 'sign-in', component: SignInComponent },
   { path: 'register-user', component: SignUpComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
 ];

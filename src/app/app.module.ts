@@ -18,6 +18,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatTableModule} from '@angular/material/table';
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
@@ -58,6 +59,7 @@ import {environment} from "../environments/environment";
     MatDividerModule,
     BrowserAnimationsModule,
     GoogleMapsModule,
+    MatTableModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
