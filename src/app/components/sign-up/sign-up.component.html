@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title>Sign Up</mat-card-title>
+  <mat-form-field>
+    <input matInput type="email" required #userEmail placeholder="Email Address" />
+  </mat-form-field>
+  <p>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" placeholder="username" required #userPassword>
+  </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <button mat-raised-button color="primary" (click)="authService.SignUp(userEmail.value, userPassword.value)">Sign Up</button>
+    </mat-form-field>
+  </p>
+  <mat-divider></mat-divider>
+  <p>
+    <mat-form-field>
+      <button mat-raised-button color="accent" (click)="authService.GoogleAuth()">
+        Continue with Google
+      </button>
+    </mat-form-field>
+  </p>
+  <p>
+    <span>Alread have an account? <span class="redirect" routerLink="/sign-in"> Sign In</span></span>
+  </p>
+</mat-card>
