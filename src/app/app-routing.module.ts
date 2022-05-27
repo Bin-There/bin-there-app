@@ -7,6 +7,7 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
 import {VerifyEmailComponent} from "./components/verify-email/verify-email.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
 import { TableViewComponent } from './components/table-view/table-view.component';
+import { MapViewComponent } from './components/map-view/map-view.component';
 
 const routes: Routes = [
   // Root
@@ -15,6 +16,7 @@ const routes: Routes = [
   // App
   { path: 'dashboard', component: DashboardComponent},//, canActivate: [AuthGuard] },
   { path: 'table', component: TableViewComponent },
+  { path: 'map', component: MapViewComponent },
 
   // Auth
   { path: 'sign-in', component: SignInComponent },
