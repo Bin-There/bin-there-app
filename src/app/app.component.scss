@@ -1,0 +1,11 @@
+.root {
+    display: block;
+}
+
+.toolbar {
+    height: 60px;
+}
+
+.container-wrapper {
+    height: calc(100vh - 60px);
+}
