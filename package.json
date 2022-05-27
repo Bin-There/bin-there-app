@@ -2,9 +2,10 @@
   "name": "bin-there-app",
   "version": "0.0.0",
   "scripts": {
+    "config": "ts-node -O '{\"module\": \"commonjs\"}' ./config.index.ts",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run config && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
