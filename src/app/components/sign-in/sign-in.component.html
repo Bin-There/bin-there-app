@@ -2,29 +2,25 @@
   <mat-card-title>Sign In</mat-card-title>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="username" required #userName>
+      <input matInput placeholder="username" required #userName />
     </mat-form-field>
     <p>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput type="password" placeholder="username" required #userPassword>
+      <input matInput type="password" placeholder="username" required #userPassword />
     </mat-form-field>
     </p>
     <p>
-      <mat-form-field>
       <button mat-raised-button color="primary" (click)="authService.SignIn(userName.value, userPassword.value)">Log In</button>
-      </mat-form-field>
     </p>
     <mat-divider></mat-divider>
     <p>
-      <mat-form-field>
       <button mat-raised-button color="accent" (click)="authService.GoogleAuth()">
         Log in with Google
       </button>
-      </mat-form-field>
     </p>
   <p>
-    <span routerLink="/forgot-password">Forgot Password?</span><br/>
+     <span routerLink="/forgot-password">Forgot Password?</span><br/>
      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
   </p>
 </mat-card>
