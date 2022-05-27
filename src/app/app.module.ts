@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import { MapViewComponent } from './map-view/map-view.component';
 import { TableViewComponent } from './table-view/table-view.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AuthService} from "./shared/services/auth.service";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
@@ -56,6 +57,7 @@ import {environment} from "../environments/environment";
     MatButtonModule,
     MatDividerModule,
     BrowserAnimationsModule,
+    GoogleMapsModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
