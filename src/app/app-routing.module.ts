@@ -6,7 +6,7 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {VerifyEmailComponent} from "./components/verify-email/verify-email.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
-import { TableViewComponent } from './table-view/table-view.component';
+import { TableViewComponent } from './components/table-view/table-view.component';
 
 const routes: Routes = [
   // Root

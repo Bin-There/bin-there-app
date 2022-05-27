@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { MapViewComponent } from './map-view/map-view.component';
-import { TableViewComponent } from './table-view/table-view.component';
+import { MapViewComponent } from './components/map-view/map-view.component';
+import { TableViewComponent } from './components/table-view/table-view.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AuthService} from "./shared/services/auth.service";
