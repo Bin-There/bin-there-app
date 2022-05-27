@@ -5,8 +5,7 @@ import { AppConfig } from './app-config.environment';
 
 export const environment = {
   production: false,
-  ...AppConfig.firebase,
-  ...AppConfig.maps
+  ...AppConfig
 };
 
 /*
