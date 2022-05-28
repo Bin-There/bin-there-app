@@ -33,6 +33,7 @@ import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
+import { StorageService } from './shared/services/storage.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import {environment} from "../environments/environment";
     GoogleMapsModule,
     MatTableModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
