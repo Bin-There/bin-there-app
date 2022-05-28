@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild,} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MapInfoWindow, MapMarker, GoogleMap} from '@angular/google-maps';
+import {MapInfoWindow, MapMarker, GoogleMap, MapDirectionsService} from '@angular/google-maps';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AuthService} from "../../shared/services/auth.service";
 import {Marker} from "./marker";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-map-view',
@@ -20,7 +21,7 @@ import {Marker} from "./marker";
 export class MapViewComponent implements OnInit {
 
   @ViewChild(GoogleMap, {static: false}) myMap: GoogleMap | undefined
-  apiLoaded: Observable<boolean>;
+  apiLoaded: Observable<boolean>|null = null;
   isLogged: boolean = false;
 
   markerOptions: google.maps.MarkerOptions = {draggable: true};
@@ -36,17 +37,22 @@ export class MapViewComponent implements OnInit {
 
   existingMarkers: Marker[] = [];
   newMarker: Marker | null = null;
+  public directionsResults$: Observable<google.maps.DirectionsResult|undefined> | null = null;
 
   constructor(httpClient: HttpClient,
               private readonly geolocation: GeolocationService,
               private dialog: MatDialog,
               private readonly _storageService: StorageService,
-              public readonly _authService: AuthService) {
-    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + environment.maps.mapKey, 'callback')
-      .pipe(
-        map(() => true),
-        catchError(() => of(false)),
-      );
+              public readonly _authService: AuthService,
+              private mapDirectionsService: MapDirectionsService,
+              private route: ActivatedRoute) {
+    if (!this.apiLoaded) {
+      this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + environment.maps.mapKey+"&sensor=false", 'callback')
+        .pipe(
+          map(() => true),
+          catchError(() => of(false)),
+        );
+    }
 
     geolocation.subscribe(coordinates => {
       this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
@@ -60,6 +66,7 @@ export class MapViewComponent implements OnInit {
         })
       })
       this.existingMarkers = existingMarkers;
+
     })
     this.isLogged = this._authService.isLoggedIn;
   }
@@ -73,8 +80,40 @@ export class MapViewComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.route.queryParams.subscribe(res => {
+      const routeMarkers: any[] = JSON.parse(res.selection);
+      if (routeMarkers.length) {
+        let waypoints: google.maps.DirectionsWaypoint[] = [];
+        routeMarkers.map((value: any) => {
+          if (value.location) {
+            waypoints.push({
+              location: value!.location,
+              stopover: false,
+            })
+          }
+        })
+        if (waypoints.length > 1) {
+          let origin: any = waypoints.pop()!.location;
+          let destination: any = waypoints.pop()!.location;
+
+
+          let request: google.maps.DirectionsRequest = {
+            optimizeWaypoints: true,
+            destination: destination,
+            origin: origin,
+            waypoints: waypoints,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+          };
+          console.log(request);
+          this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => {console.log(response); return response.result}));
+        }
+      }
+    });
   }
+
+
 
   newTrash(): void {
     const dialogRef = this.dialog.open(TrashDialogComponent, {

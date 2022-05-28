@@ -5,7 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import {Trash} from "../trash/trash";
 import {SelectionModel} from "@angular/cdk/collections";
-import {Router} from "@angular/router";
+import {Params, Router} from "@angular/router";
 import {TrashResources} from "../trash/TrashResources";
 
 @Component({
@@ -19,7 +19,7 @@ export class TableViewComponent implements AfterViewInit {
   selection:SelectionModel<Trash> = new SelectionModel<Trash>(true, []);
   resources:TrashResources = new TrashResources();
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _storageService: StorageService) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _storageService: StorageService, private router: Router) {
     _storageService.ObservableTrashes.subscribe(trashes => {
       this.dataSource.data = trashes;
       this.dataSource.sort = this.sort;
@@ -57,7 +57,15 @@ export class TableViewComponent implements AfterViewInit {
   }
 
   createRoute():void{
-    alert(this.selection.selected.map(x => x.location))
+    console.log(this.selection.selected);
+    const queryParams: Params = { selection: JSON.stringify(this.selection.selected) };
+
+    this.router.navigate(
+      ["/map"],
+      {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge', // remove to replace all query params by provided
+      });
   }
 
 
