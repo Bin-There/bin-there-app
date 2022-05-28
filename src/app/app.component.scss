@@ -1,11 +1,22 @@
 .root {
-    display: block;
+  display: block;
 }
 
 .toolbar {
-    height: 60px;
+  height: 60px;
 }
 
 .container-wrapper {
-    height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
+}
+
+#logo {
+  width: 48px;
+}
+
+.header {
+  font-size: 1em;
+  width: 100%;
+  text-align: center;
+  margin-left: -48px;
 }
