@@ -4,6 +4,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Trash} from "../trash/trash";
 import {StorageService} from "../../shared/services/storage.service";
 import {MatSort} from "@angular/material/sort";
+import {TrashResources} from "../trash/TrashResources";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   displayedColumns: string[] = ['type' , 'size', 'date'];
   dataSource: MatTableDataSource<Trash> = new MatTableDataSource<Trash>([]);
+  resources: TrashResources = new TrashResources();
 
   @ViewChild(MatSort) sort!: MatSort;
 

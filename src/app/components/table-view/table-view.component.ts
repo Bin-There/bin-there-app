@@ -6,6 +6,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import {Trash} from "../trash/trash";
 import {SelectionModel} from "@angular/cdk/collections";
 import {Router} from "@angular/router";
+import {TrashResources} from "../trash/TrashResources";
 
 @Component({
   selector: 'app-table-view',
@@ -16,6 +17,7 @@ export class TableViewComponent implements AfterViewInit {
   displayedColumns: string[] = ['select', 'photo', 'type' , 'size', 'date'];
   dataSource: MatTableDataSource<Trash> = new MatTableDataSource<Trash>([]);
   selection:SelectionModel<Trash> = new SelectionModel<Trash>(true, []);
+  resources:TrashResources = new TrashResources();
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private _storageService: StorageService) {
     _storageService.ObservableTrashes.subscribe(trashes => {
@@ -58,32 +60,5 @@ export class TableViewComponent implements AfterViewInit {
     alert(this.selection.selected.map(x => x.location))
   }
 
-  getDateTimeString(value: any) : string{
 
-    if(value)
-    {
-      let date: Date = value.toDate();
-
-      return date.toLocaleString();
-    }
-
-    return value;
-  }
-
-  getImageForType(type: string) : string {
-    switch (type){
-      case 'plastic' :
-        return '../../../assets/bin_plastic_01.svg';
-      case 'glass' :
-        return '../../../assets/bin_glass_01.svg';
-      case 'paper' :
-        return '../../../assets/bin_paper_01.svg';
-      case 'metal' :
-        return '../../../assets/bin_metal_lnl_01.svg';
-      case 'compostable' :
-        return '../../../assets/bin_bio_01.svg';
-    }
-
-    return '../../../assets/bin_mix_01.svg';
-  }
 }
