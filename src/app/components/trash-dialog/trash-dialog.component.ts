@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Trash} from "../trash/trash";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize, Observable} from "rxjs";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-trash-dialog',
@@ -10,6 +11,7 @@ import {finalize, Observable} from "rxjs";
   styleUrls: ['./trash-dialog.component.scss']
 })
 export class TrashDialogComponent implements OnInit {
+  public trashForm: FormGroup|null = null;
   public sizes = [
     {value: "small", viewValue: "Small"},
     {value: "medium", viewValue: "Medium"},
@@ -40,6 +42,7 @@ export class TrashDialogComponent implements OnInit {
   ]
   private trashPhotoDownloadURL: Observable<string> | null = null;
   ngOnInit(): void {
+
   }
 
   constructor(

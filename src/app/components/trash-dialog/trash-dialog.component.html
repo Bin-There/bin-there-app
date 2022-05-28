@@ -30,30 +30,39 @@
   </mat-step>
   <mat-step label="Fill details">
     <mat-form-field appearance="fill">
-      <mat-label>Size*</mat-label>
-      <mat-select [(ngModel)]="data.trash.size" >
+      <mat-label>Size</mat-label>
+      <mat-select required [(ngModel)]="data.trash.size" #usize="ngModel" >
         <mat-option *ngFor="let size of sizes" [value]="size.value">
           {{size.viewValue}}
         </mat-option>
       </mat-select>
+      <div *ngIf="!usize.touched || usize.invalid">
+        Size is required.
+      </div>
     </mat-form-field><br/>
     <section class="section-bin">
-      <mat-form-field appearance="fill" *ngIf="data.trash.entityType=='bin'">
+      <mat-form-field  appearance="fill" *ngIf="data.trash.entityType=='bin'">
         <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="data.trash.status" >
+        <mat-select [required]="data.trash.entityType=='bin'" #ustatus="ngModel"  [(ngModel)]="data.trash.status" >
           <mat-option value="ready">Ready</mat-option>
           <mat-option value="full">Full</mat-option>
           <mat-option value="overfilled">Overfilled</mat-option>
         </mat-select>
+        <div *ngIf="data.trash.entityType=='bin' && (!ustatus.touched || ustatus.invalid)">
+          Status is required.
+        </div>
       </mat-form-field><br/>
     </section>
     <mat-form-field appearance="fill">
       <mat-label>Type</mat-label>
-      <mat-select [(ngModel)]="data.trash.type">
+      <mat-select required #utype="ngModel" [(ngModel)]="data.trash.type">
         <mat-option *ngFor="let type of getTypes()"  [value]="type.value">
           {{type.viewValue}}
         </mat-option>
       </mat-select>
+      <div *ngIf="!utype.touched || utype.invalid">
+          Status is required.
+        </div>
     </mat-form-field><br/>
     <mat-form-field>
       <mat-label>Note</mat-label>
@@ -65,9 +74,8 @@
     </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button [mat-dialog-close]="{ trash: data.trash }" color="primary">Submit</button>
+        <button mat-button [mat-dialog-close]="{ trash: data.trash }" color="primary" [disabled]="formInvalid()">Submit</button>
         <button mat-button (click)="cancel()">Cancel</button>
       </div>
   </mat-step>
 </mat-stepper>
-
