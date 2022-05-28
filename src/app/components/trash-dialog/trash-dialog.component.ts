@@ -20,10 +20,10 @@ export class TrashDialogComponent implements OnInit {
     {value: "metal", viewValue: "Metal"},
     {value: "plastic", viewValue: "Plastic"},
     {value: "glass", viewValue: "Glass"},
-    {value: "composable", viewValue: "Composable waste"},
+    {value: "composable", viewValue: "Compostable waste"},
     {value: "debris", viewValue: "Debris"},
     {value: "oil", viewValue: "Used oil"},
-    {value: "electronic_waste", viewValue: "electronic waste"},
+    {value: "electronic_waste", viewValue: "Electronic waste"},
   ];
   public binTypes = [
     {value: "mixed", viewValue: "Mixed"},
@@ -31,6 +31,7 @@ export class TrashDialogComponent implements OnInit {
     {value: "plastic", viewValue: "Plastic"},
     {value: "glass", viewValue: "Glass"},
     {value: "paper", viewValue: "Paper"},
+    {value: "compostable", viewValue: "Compostable waste"},
   ];
   public abandonedTypes = [
     {value: "mixed", viewValue: "Mixed"},
@@ -40,8 +41,6 @@ export class TrashDialogComponent implements OnInit {
   private trashPhotoDownloadURL: Observable<string> | null = null;
   ngOnInit(): void {
   }
-
-  private backupTrash: Partial<Trash> = { ...this.data.trash };
 
   constructor(
     public dialogRef: MatDialogRef<TrashDialogComponent>,
