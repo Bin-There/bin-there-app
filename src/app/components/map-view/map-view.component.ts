@@ -6,6 +6,9 @@ import {catchError, map} from 'rxjs/operators';
 import {AppConfig} from 'src/environments/app-config.environment';
 import {GeolocationService} from '@ng-web-apis/geolocation';
 import {Marker, Position, StorageService} from 'src/app/shared/services/storage.service';
+import {TrashDialogComponent, TrashDialogResult} from "../trash-dialog/trash-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-map-view',
@@ -29,7 +32,7 @@ export class MapViewComponent implements OnInit {
 
   markerPositions: google.maps.LatLngLiteral[] = [];
 
-  constructor(httpClient: HttpClient, private readonly geolocation: GeolocationService, private readonly _storageService: StorageService) {
+  constructor(httpClient: HttpClient, private readonly geolocation: GeolocationService, private dialog: MatDialog, private readonly _storageService: StorageService, private store: AngularFirestore) {
     this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + AppConfig.maps.mapKey, 'callback')
       .pipe(
         map(() => true),
@@ -51,6 +54,22 @@ export class MapViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
 
+  newTrash(): void {
+    const dialogRef = this.dialog.open(TrashDialogComponent, {
+      width: '270px',
+      data: {
+        trash: {},
+      },
+    });
+    dialogRef
+      .afterClosed()
+      .subscribe((result: TrashDialogResult|undefined) => {
+        if (!result) {
+          return;
+        }
+        this.store.collection('trash').add(result.trash)
+      });
   }
 }

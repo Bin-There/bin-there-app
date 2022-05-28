@@ -33,6 +33,11 @@ import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
+import {TrashDialogComponent} from "./components/trash-dialog/trash-dialog.component";
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
+import {MatDialogModule} from "@angular/material/dialog";
+import {FormsModule} from "@angular/forms";
 import { StorageService } from './shared/services/storage.service';
 
 @NgModule({
@@ -44,7 +49,9 @@ import { StorageService } from './shared/services/storage.service';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     MapViewComponent,
-    TableViewComponent
+    TableViewComponent,
+    TrashDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -62,12 +69,17 @@ import { StorageService } from './shared/services/storage.service';
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
+    MatDialogModule,
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
     BrowserAnimationsModule,
     GoogleMapsModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatOptionModule,
+    FormsModule,
+
   ],
   providers: [AuthService, StorageService],
   bootstrap: [AppComponent]

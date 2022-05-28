@@ -1,0 +1,16 @@
+<mat-card class="item" *ngIf="trash" (dblclick)="edit.emit(trash)">
+  <img src="{{(trash.photoURL) ? trash.photoURL : '/assets/dummy-trash.png'}}"
+       alt="{{trash.type}}">
+  <p>
+    {{ trash.type}}
+  </p>
+  <p>
+  {{ trash.size}}
+  </p>
+  <p>
+    {{ trash.tags.join(', ') }}
+  </p>
+  <p>
+  {{ trash.note }}
+  </p>
+</mat-card>
