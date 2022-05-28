@@ -8,5 +8,5 @@
       </map-marker-clusterer>
       <map-marker [position]="newMarker.position" [options]="newMarker.options" *ngIf="newMarker" ></map-marker>
     </google-map>
-    <button mat-fab color="primary" class="trash-add" (click)="newTrash()" *ngIf="isLogged"><mat-icon>add</mat-icon></button>
+    <button mat-fab color="primary" class="trash-add" (click)="newTrash()" *ngIf="isLogged" [disabled]="!newMarker"><mat-icon>add</mat-icon></button>
 </div>

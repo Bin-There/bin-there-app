@@ -81,7 +81,7 @@ export class MapViewComponent implements OnInit {
       width: '270px',
       data: {
         trash: {
-          location: this.newMarker,
+          location: this.newMarker?.position,
           userId: this._authService.userData.uid,
           date: new Date(),
           status: 'pending'
@@ -94,6 +94,7 @@ export class MapViewComponent implements OnInit {
         if (!result) {
           return;
         }
+        this.newMarker = null;
         this._storageService.AddTrash(result.trash);
       });
   }
