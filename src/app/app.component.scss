@@ -4,6 +4,8 @@
 
 .toolbar {
   height: 60px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
 }
 
 .container-wrapper {
@@ -11,21 +13,31 @@
 }
 
 #logo {
-  width: 48px;
+  height: 48px;
+  vertical-align: center;
 }
 
 .header {
   font-size: 1em;
-  width: 100%;
   text-align: center;
-  margin-left: -48px;
 }
 
-.btn-log-in-out {
-  position: absolute;
-  top: 5px;
-  right: 35px;
-  z-index: 1000;
-  background-color: mat-color('white');
+.user-photo {
+  border-radius: 50%;
+  height: 42px;
+  margin-top: -8px;
+}
+
+button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 8px;
+  height: 40px;
+}
+
+.actions {
+  grid-column: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
