@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import {Trash} from "../trash/trash";
 import {SelectionModel} from "@angular/cdk/collections";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-table-view',
@@ -54,7 +55,19 @@ export class TableViewComponent implements AfterViewInit {
   }
 
   createRoute():void{
-    alert(this.selection.selected.length)
+    alert(this.selection.selected.map(x => x.location))
+  }
+
+  getDateTimeString(value: any) : string{
+
+    if(value)
+    {
+      let date: Date = value.toDate();
+
+      return date.toLocaleString();
+    }
+
+    return value;
   }
 
   getImageForType(type: string) : string {

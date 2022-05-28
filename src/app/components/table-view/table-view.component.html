@@ -48,7 +48,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="date" sortActionDescription="Sort by Date">
         Date
       </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      <td mat-cell *matCellDef="let element"> {{getDateTimeString(element.date) }} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
