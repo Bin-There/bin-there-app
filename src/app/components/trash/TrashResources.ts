@@ -6,15 +6,15 @@ export class TrashResources {
 
     switch (trash.type) {
       case 'plastic' :
-        return 'assets/bin_plastic_01.svg';
+        return 'assets/trashpoint_plastic.svg';
       case 'glass' :
-        return 'assets/bin_glass_01.svg';
+        return 'assets/trashpoint_glass.svg';
       case 'paper' :
-        return 'assets/bin_paper_01.svg';
+        return 'assets/trashpoint_paper.svg';
       case 'metal' :
-        return 'assets/bin_metal_lnl_01.svg';
+        return 'assets/trashpoint_metal.svg';
       case 'compostable' :
-        return 'assets/bin_bio_01.svg';
+        return 'assets/trashpoint_bio.svg';
     }
 
     return 'assets/bin_mix_01.svg';

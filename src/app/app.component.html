@@ -1,13 +1,17 @@
 <div class="root">
   <mat-toolbar color="primary" class="toolbar">
 
-    <button mat-button routerLink="/map">
-      <img class="header-image" src="../assets/logo_01.svg" alt="logo"/>
-      <img class="header-image" src="../assets/product_name.svg" alt="logo"/>
-      <img class="header-image" src="../assets/product_slogan.svg" alt="logo"/>
-    </button>
+    <a mat-button routerLink="/map">
+      <img class="header-image" src="../assets/header_logo_name_slogan.svg" alt="logo"/>
+<!--      <img class="header-image" src="../assets/product_name.svg" alt="logo"/>-->
+<!--      <img class="header-image" src="../assets/product_slogan.svg" alt="logo"/>-->
+    </a>
 
     <div class="actions">
+
+      <button mat-mini-fab color="secondary" matTooltip="Select the language.">
+        <img class="user-photo" src="assets/flag_uk.svg" alt="uk-flag">
+      </button>
       <button mat-mini-fab color="secondary" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn"
               matTooltip="Log out.">
         <mat-icon>logout</mat-icon>

@@ -3,20 +3,19 @@
 }
 
 .toolbar {
-  height: 60px;
+  height: 82px;
   display: grid;
   grid-template-columns: auto 1fr auto;
 }
 
 .container-wrapper {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 82px);
   overflow: auto;
 }
 
 .header-image {
-  height: 36px;
-  vertical-align: center;
-  padding-right: 20px;
+  height: 64px;
+  vertical-align: top;
 }
 
 .header {
@@ -33,13 +32,13 @@
 button {
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 8px;
+  margin-left: 12px;
   height: 40px;
 }
 
 .actions {
   grid-column: 3;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
