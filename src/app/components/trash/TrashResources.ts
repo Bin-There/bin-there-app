@@ -16,11 +16,11 @@ export class TrashResources {
       case 'compostable' :
         return 'assets/trashpoint_bio.svg';
       case 'debris':
-        return 'src/assets/trashpoint_debris.svg';
+        return 'assets/trashpoint_debris.svg';
       case 'electronic_waste':
-        return 'src/assets/trashpoint_electronic_waste.svg';
+        return 'assets/trashpoint_electronic_waste.svg';
       case 'oil':
-        return 'src/assets/trashpoint_oil.svg';
+        return 'assets/trashpoint_oil.svg';
     }
 
     return 'assets/trashpoint_mix.svg';
