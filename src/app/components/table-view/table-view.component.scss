@@ -1,0 +1,27 @@
+.root {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+table {
+  width: 100%;
+  height: 100%;
+}
+
+tr {
+  height: 80px;
+}
+
+.waste-image{
+  height: 120px;
+
+}
+
+.map-view {
+  position: absolute;
+  bottom: 35px;
+  left: 35px;
+  z-index: 1000;
+  background-color: mat-color('white');
+}
