@@ -39,7 +39,11 @@ fgsdfgsdfgdsfg
 
     <ng-container matColumnDef="type" class="text-center">
       <th mat-header-cell *matHeaderCellDef>
-        Waste Type
+        <mat-select id="waste-type-selection" required #utype="ngModel" [(ngModel)]="wasteType" (ngModelChange)="onWasteFilterChanged($event)">
+          <mat-option *ngFor="let type of collectibleTypes"  [value]="type.value">
+            {{type.viewValue}}
+          </mat-option>
+        </mat-select>
       </th>
       <td mat-cell *matCellDef="let element">
         <img class="waste-type" src="{{ resources.getImageForType(element)}}" alt="image">
