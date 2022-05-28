@@ -17,7 +17,7 @@ export class TableViewComponent implements AfterViewInit {
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private _storageService: StorageService) {
     _storageService.ObservableTrashes.subscribe(trashes => {
-      this.dataSource = new MatTableDataSource<Trash>(trashes);
+      this.dataSource.data = trashes;
     })
     this.sort = new MatSort();
   }
