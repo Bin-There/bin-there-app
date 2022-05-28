@@ -83,7 +83,7 @@ export class MapViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(res => {
-      const routeMarkers: any[] = JSON.parse(res.selection);
+      let routeMarkers: any[] = JSON.parse(decodeURIComponent(res.selection));
       if (routeMarkers.length) {
         let waypoints: google.maps.DirectionsWaypoint[] = [];
         routeMarkers.map((value: any) => {

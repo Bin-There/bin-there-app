@@ -58,7 +58,7 @@ export class TableViewComponent implements AfterViewInit {
 
   createRoute():void{
     console.log(this.selection.selected);
-    const queryParams: Params = { selection: JSON.stringify(this.selection.selected) };
+    const queryParams: Params = { selection: encodeURIComponent(JSON.stringify(this.selection.selected)) };
 
     this.router.navigate(
       ["/map"],
