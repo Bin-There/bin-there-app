@@ -12,13 +12,12 @@
   <p>
       <button mat-raised-button color="primary" (click)="authService.SignUp(userEmail.value, userPassword.value)">Sign Up</button>
   </p>
-  <mat-divider></mat-divider>
   <p>
       <button mat-raised-button color="accent" (click)="authService.GoogleAuth()">
         Continue with Google
       </button>
   </p>
   <p>
-    <span>Alread have an account? <span class="redirect" routerLink="/sign-in"> Sign In</span></span>
+    <button mat-raised-button class="redirect" routerLink="/sign-in"> Sign in</button>
   </p>
 </mat-card>
