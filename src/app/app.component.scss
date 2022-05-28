@@ -1,0 +1,43 @@
+.root {
+  display: block;
+}
+
+.toolbar {
+  height: 60px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+.container-wrapper {
+  height: calc(100vh - 60px);
+}
+
+#logo {
+  height: 48px;
+  vertical-align: center;
+}
+
+.header {
+  font-size: 1em;
+  text-align: center;
+}
+
+.user-photo {
+  border-radius: 50%;
+  height: 42px;
+  margin-top: -8px;
+}
+
+button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 8px;
+  height: 40px;
+}
+
+.actions {
+  grid-column: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+

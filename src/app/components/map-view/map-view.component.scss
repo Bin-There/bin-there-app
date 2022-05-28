@@ -1,0 +1,22 @@
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.trash-add {
+  position: absolute;
+  bottom: 35px;
+  right: 35px;
+  z-index: 1000;
+  background-color: mat-color('white');
+}
+
+.table-view {
+  position: absolute;
+  bottom: 35px;
+  left: 35px;
+  z-index: 1000;
+  background-color: mat-color('white');
+}
+
+

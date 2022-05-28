@@ -1,6 +1,33 @@
-<mat-toolbar color="primary">
-  <span>Bin-there</span>
-</mat-toolbar>
-<div class="container-wrapper">
-  <router-outlet></router-outlet>
+<div class="root">
+  <mat-toolbar color="primary" class="toolbar">
+
+    <button mat-button routerLink="/map">
+      <img id="logo" src="../assets/logo_01.svg" alt="logo"/>
+    </button>
+
+    <button mat-button routerLink="/">
+      <span>Bin-there</span>
+    </button>
+
+    <div class="actions">
+      <button mat-mini-fab color="secondary" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn"
+              matTooltip="Log out.">
+        <mat-icon>logout</mat-icon>
+      </button>
+
+      <button mat-mini-fab color="secondary" routerLink="/sign-in" *ngIf="!authService.isLoggedIn"
+              matTooltip="You are currently not logged in, please log in.">
+        <mat-icon>login</mat-icon>
+      </button>
+
+      <button mat-mini-fab color="secondary" routerLink="/dashboard" *ngIf="authService.userData as user">
+        <img class="user-photo" src="{{user.photoURL ? user.photoURL : '/assets/dummy-user.png'}}" alt="user image"
+             matTooltip="{{user.displayName ? 'Go to ' + user.displayName + 's dashboard.' : 'User'}}">
+      </button>
+    </div>
+
+  </mat-toolbar>
+  <div class="container-wrapper">
+    <router-outlet></router-outlet>
+  </div>
 </div>
