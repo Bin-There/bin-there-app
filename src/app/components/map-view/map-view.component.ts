@@ -5,10 +5,11 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {AppConfig} from 'src/environments/app-config.environment';
 import {GeolocationService} from '@ng-web-apis/geolocation';
-import {Marker, Position, StorageService} from 'src/app/shared/services/storage.service';
+import {Position, StorageService} from 'src/app/shared/services/storage.service';
 import {TrashDialogComponent, TrashDialogResult} from "../trash-dialog/trash-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-map-view',
@@ -19,6 +20,7 @@ export class MapViewComponent implements OnInit {
 
   @ViewChild(GoogleMap, {static: false}) myMap: GoogleMap | undefined
   apiLoaded: Observable<boolean>;
+  isLogged: boolean = false;
 
   markerOptions: google.maps.MarkerOptions = {draggable: true};
 
@@ -32,7 +34,11 @@ export class MapViewComponent implements OnInit {
 
   markerPositions: google.maps.LatLngLiteral[] = [];
 
-  constructor(httpClient: HttpClient, private readonly geolocation: GeolocationService, private dialog: MatDialog, private readonly _storageService: StorageService, private store: AngularFirestore) {
+  constructor(httpClient: HttpClient,
+              private readonly geolocation: GeolocationService,
+              private dialog: MatDialog,
+              private readonly _storageService: StorageService,
+              public readonly _authService: AuthService) {
     this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + AppConfig.maps.mapKey, 'callback')
       .pipe(
         map(() => true),
@@ -42,14 +48,12 @@ export class MapViewComponent implements OnInit {
     geolocation.subscribe(coordinates => {
       this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
     });
+    this.isLogged = this._authService.isLoggedIn;
   }
 
   click(event: google.maps.MapMouseEvent) {
     if (event?.latLng != null) {
       this.markerPositions.push(event.latLng.toJSON());
-      this._storageService.AddMarker(new Marker(new Position(event.latLng.lat(), event.latLng.lng()), new Date(Date.now())));
-
-      console.log("Marker added in map view. Markers count:" + this._storageService.Markers.length);
     }
   }
 
@@ -60,7 +64,11 @@ export class MapViewComponent implements OnInit {
     const dialogRef = this.dialog.open(TrashDialogComponent, {
       width: '270px',
       data: {
-        trash: {},
+        trash: {
+          location: this.markerPositions.pop(),
+          userId: this._authService.userData.uid,
+          date: new Date()
+        },
       },
     });
     dialogRef
@@ -69,7 +77,7 @@ export class MapViewComponent implements OnInit {
         if (!result) {
           return;
         }
-        this.store.collection('trash').add(result.trash)
+        this._storageService.AddTrash(result.trash);
       });
   }
 }

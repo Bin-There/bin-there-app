@@ -6,4 +6,6 @@ export interface Trash {
   type: string;
   tags: string[];
   note: string;
+  userId: string;
+  date: Date;
 }
