@@ -17,3 +17,11 @@ tr {
   height: 120px;
 
 }
+
+.map-view {
+  position: absolute;
+  bottom: 35px;
+  left: 35px;
+  z-index: 1000;
+  background-color: mat-color('white');
+}

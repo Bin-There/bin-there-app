@@ -4,6 +4,8 @@
 
     <div class="header">
       <span>Bin-there</span>
+      <button mat-mini-fab color="secondary" class="btn-log-in-out" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn" ><mat-icon>logout</mat-icon></button>
+      <button mat-mini-fab color="secondary" class="btn-log-in-out" routerLink="/sign-in" *ngIf="!authService.isLoggedIn" ><mat-icon>login</mat-icon></button>
     </div>
 
   </mat-toolbar>

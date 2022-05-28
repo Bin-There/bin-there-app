@@ -20,3 +20,12 @@
   text-align: center;
   margin-left: -48px;
 }
+
+.btn-log-in-out {
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  z-index: 1000;
+  background-color: mat-color('white');
+}
+
