@@ -31,6 +31,8 @@ export class TableViewComponent implements AfterViewInit {
     switch (type){
       case 'plastic' :
         return '../../../assets/bin_plastic_01.svg';
+      case 'glass' :
+        return '../../../assets/bin_glass_01.svg';
       case 'paper' :
         return '../../../assets/bin_paper_01.svg';
       case 'metal' :

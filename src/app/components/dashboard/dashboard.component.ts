@@ -1,11 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
+import {MatTableDataSource} from "@angular/material/table";
+import {Trash} from "../trash/trash";
+import {StorageService} from "../../shared/services/storage.service";
+import {MatSort} from "@angular/material/sort";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: [],
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+
+  displayedColumns: string[] = ['type' , 'size', 'date'];
+  dataSource: MatTableDataSource<Trash> = new MatTableDataSource<Trash>([]);
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(public authService: AuthService, private _storageService: StorageService) {
+    _storageService.ObservableTrashes.subscribe(trashes => {
+      this.dataSource.data = trashes.filter(x => x.userId === authService.userData.uid);
+      this.dataSource.sort = this.sort;
+    })
+    this.sort = new MatSort();
+  }
+
   ngOnInit(): void {}
 }
