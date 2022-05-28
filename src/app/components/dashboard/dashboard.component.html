@@ -1,20 +1,13 @@
 <div id="root">
-
-  <mat-card>
-    <mat-card-title>User profile</mat-card-title>
-    <mat-card-actions>
-      <a mat-button (click)="authService.SignOut()">
-        <mat-icon>logout</mat-icon>
-      </a>
-    </mat-card-actions>
-    <div class="row" *ngIf="authService.userData as user">
-      <img class="rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
+  <mat-card id="user-card" *ngIf="authService.userData as user">
+    <div class="row">
+      <img class="user-photo" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
            alt="{{user.displayName}}">
       <div>
-        <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-        <p>User ID: <strong>{{user.uid}}</strong></p>
+        <h1><strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
+        <p>ID: <strong>{{user.uid}}</strong></p>
         <p>Email: <strong>{{user.email}}</strong></p>
-        <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+        <p>Email Verified: <strong>{{user.emailVerified ? "Yes " : "No"}}</strong></p>
       </div>
     </div>
 
