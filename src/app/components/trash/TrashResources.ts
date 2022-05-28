@@ -17,7 +17,7 @@ export class TrashResources {
         return 'assets/trashpoint_bio.svg';
     }
 
-    return 'assets/bin_mix_01.svg';
+    return 'assets/trashpoint_mix.svg';
   }
 
   public getImageForEntityType(trash: Trash): string {

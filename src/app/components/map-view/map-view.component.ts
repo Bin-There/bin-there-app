@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewChild,} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MapInfoWindow, MapMarker, GoogleMap, MapDirectionsService} from '@angular/google-maps';
+import {GoogleMap, MapDirectionsService} from '@angular/google-maps';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 import {GeolocationService} from '@ng-web-apis/geolocation';
-import {Position, StorageService} from 'src/app/shared/services/storage.service';
+import {StorageService} from 'src/app/shared/services/storage.service';
 import {TrashDialogComponent, TrashDialogResult} from "../trash-dialog/trash-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AuthService} from "../../shared/services/auth.service";
 import {Marker} from "./marker";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -22,6 +21,7 @@ import {TrashResources} from "../trash/TrashResources";
 export class MapViewComponent implements OnInit {
 
   @ViewChild(GoogleMap, {static: false}) myMap: GoogleMap | undefined
+  mapScrolled: boolean = false;
   apiLoaded: Observable<boolean>|null = null;
   isLogged: boolean = false;
 
@@ -56,7 +56,10 @@ export class MapViewComponent implements OnInit {
     }
 
     geolocation.subscribe(coordinates => {
-      this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
+      if (!this.mapScrolled) {
+        this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
+      }
+      this.mapScrolled = true;
     });
     _storageService.ObservableTrashes.subscribe(trashes => {
       let existingMarkers: Marker[] = [];
@@ -80,16 +83,20 @@ export class MapViewComponent implements OnInit {
       };
     }
   }
-
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
     this.route.queryParams.subscribe(res => {
       let routeMarkers: any[] = JSON.parse(decodeURIComponent(res.selection));
       if (routeMarkers.length) {
-        let waypoints: google.maps.DirectionsWaypoint[] = [];
-        routeMarkers.map((value: any) => {
+        let waypoints: any[] = [];
+        routeMarkers.map((value: any, index) => {
           if (value.location) {
+            let loc = value!.location
             waypoints.push({
-              location: value!.location,
+              location: {lat: parseFloat(loc.lat), lng: parseFloat(loc.lng)},
               stopover: false,
             })
           }
@@ -98,23 +105,20 @@ export class MapViewComponent implements OnInit {
           let origin: any = waypoints.pop()!.location;
           let destination: any = waypoints.pop()!.location;
 
-
-          let request: google.maps.DirectionsRequest = {
+          let request: any = {
             optimizeWaypoints: true,
             destination: destination,
             origin: origin,
             waypoints: waypoints,
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC,
+            travelMode: 'DRIVING',
+            unitSystem: 1.0,
           };
-          console.log(request);
-          this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => {console.log(response); return response.result}));
+
+          this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
         }
       }
     });
   }
-
-
 
   newTrash(): void {
     const dialogRef = this.dialog.open(TrashDialogComponent, {
@@ -123,7 +127,8 @@ export class MapViewComponent implements OnInit {
           location: this.newMarker?.position,
           userId: this._authService.userData.uid,
           date: new Date(),
-          status: 'pending'
+          status: 'pending',
+          entityType: 'bin',
         },
       },
     });
