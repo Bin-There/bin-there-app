@@ -21,7 +21,7 @@
       </button>
 
       <button mat-mini-fab color="secondary" routerLink="/dashboard" *ngIf="authService.userData as user">
-        <img class="user-photo" src="{{user.photoURL ? user.photoURL : '/assets/dummy-user.png'}}" alt="user image"
+        <img class="user-photo" src="{{user.photoURL ? user.photoURL : '/assets/user_profile.svg'}}" alt="user image"
              matTooltip="{{user.displayName ? 'Go to ' + user.displayName + 's dashboard.' : 'User'}}">
       </button>
     </div>
