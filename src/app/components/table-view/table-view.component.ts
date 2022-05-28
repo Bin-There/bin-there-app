@@ -19,15 +19,41 @@ export class TableViewComponent implements AfterViewInit {
   selection:SelectionModel<Trash> = new SelectionModel<Trash>(true, []);
   resources:TrashResources = new TrashResources();
 
+  public collectibleTypes = [
+    {value: "all", viewValue: "All"},
+    {value: "paper", viewValue: "Paper"},
+    {value: "metal", viewValue: "Metal"},
+    {value: "plastic", viewValue: "Plastic"},
+    {value: "glass", viewValue: "Glass"},
+    {value: "composable", viewValue: "Compostable waste"},
+    {value: "debris", viewValue: "Debris"},
+    {value: "oil", viewValue: "Used oil"},
+    {value: "electronic_waste", viewValue: "Electronic waste"},
+  ];
+
+  public wasteType:string;
+
+  private workingSet: Trash[] = [];
+
   constructor(private _liveAnnouncer: LiveAnnouncer, private _storageService: StorageService, private router: Router) {
     _storageService.ObservableTrashes.subscribe(trashes => {
-      this.dataSource.data = trashes;
-      this.dataSource.sort = this.sort;
+      this.workingSet = trashes;
+      this.updateData();
     })
     this.sort = new MatSort();
     this.selection = new SelectionModel<Trash>(true, []);
-
+    this.wasteType = this.collectibleTypes[0].value;
   }
+
+  updateData(){
+    this.dataSource.data = this.wasteType === "all" ? this.workingSet : this.workingSet.filter(x => x.type === this.wasteType);
+    this.dataSource.sort = this.sort;
+  }
+
+  onWasteFilterChanged(argument:any){
+    this.updateData();
+  }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;

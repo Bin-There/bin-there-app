@@ -66,7 +66,7 @@ export class MapViewComponent implements OnInit {
       trashes.map(value => {
         existingMarkers.push({
           position: value.location ? value.location : {lat: 46.770161693428626, lng: 23.58938212082915},
-          options: {draggable: false, icon: this.resources.getImageForType(value)}
+          options: {draggable: false, icon: this.resources.getImageForType(value), title: "Collection: " + value.entityType + ", Waste type: " + value.type + ", Size: " + value.size}
         })
       })
       this.existingMarkers = existingMarkers;
