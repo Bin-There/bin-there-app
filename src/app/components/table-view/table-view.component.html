@@ -1,12 +1,30 @@
 <div id="root">
   <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8">
 
-    <ng-container matColumnDef="photo">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="photo" class="text-center">
       <th mat-header-cell *matHeaderCellDef>
         Photo
       </th>
       <td mat-cell *matCellDef="let element">
-        <img class="waste-image" src="{{element.photoURL ? element.photoURL : getImageForType(element.type)}}" alt="image">
+        <img class="waste-image" src="{{ getImageForType(element.type)}}" alt="image">
       </td>
     </ng-container>
 

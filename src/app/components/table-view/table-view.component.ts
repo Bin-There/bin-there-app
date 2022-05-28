@@ -4,6 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import {Trash} from "../trash/trash";
+import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-table-view',
@@ -11,8 +12,9 @@ import {Trash} from "../trash/trash";
   styleUrls: ['./table-view.component.scss']
 })
 export class TableViewComponent implements AfterViewInit {
-  displayedColumns: string[] = ['photo', 'type' , 'size', 'date'];
+  displayedColumns: string[] = ['select', 'photo', 'type' , 'size', 'date'];
   dataSource: MatTableDataSource<Trash> = new MatTableDataSource<Trash>([]);
+  selection:SelectionModel<Trash> = new SelectionModel<Trash>(true, []);
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private _storageService: StorageService) {
     _storageService.ObservableTrashes.subscribe(trashes => {
@@ -20,8 +22,32 @@ export class TableViewComponent implements AfterViewInit {
       this.dataSource.sort = this.sort;
     })
     this.sort = new MatSort();
+    this.selection = new SelectionModel<Trash>(true, []);
+
+  }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Trash): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+  }
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
