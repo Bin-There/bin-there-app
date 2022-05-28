@@ -11,7 +11,7 @@ import { MapViewComponent } from './components/map-view/map-view.component';
 
 const routes: Routes = [
   // Root
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/map', pathMatch: 'full' },
 
   // App
   { path: 'dashboard', component: DashboardComponent},//, canActivate: [AuthGuard] },
