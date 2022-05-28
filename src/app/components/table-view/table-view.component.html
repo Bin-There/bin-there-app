@@ -55,4 +55,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <button mat-fab color="primary" class="map-view" routerLink="/map" ><mat-icon>map</mat-icon></button>
+  <button mat-fab color="primary" class="create-route-view" (click)="createRoute()" ><mat-icon>route</mat-icon></button>
 </div>

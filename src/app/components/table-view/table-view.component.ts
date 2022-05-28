@@ -53,6 +53,10 @@ export class TableViewComponent implements AfterViewInit {
   ngAfterViewInit() {
   }
 
+  createRoute():void{
+    alert(this.selection.selected.length)
+  }
+
   getImageForType(type: string) : string {
     switch (type){
       case 'plastic' :
