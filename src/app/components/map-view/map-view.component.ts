@@ -22,6 +22,7 @@ import {TrashResources} from "../trash/TrashResources";
 export class MapViewComponent implements OnInit {
 
   @ViewChild(GoogleMap, {static: false}) myMap: GoogleMap | undefined
+  mapScrolled: boolean = false;
   apiLoaded: Observable<boolean>|null = null;
   isLogged: boolean = false;
 
@@ -56,7 +57,10 @@ export class MapViewComponent implements OnInit {
     }
 
     geolocation.subscribe(coordinates => {
-      this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
+      if (!this.mapScrolled) {
+        this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
+      }
+      this.mapScrolled = true;
     });
     _storageService.ObservableTrashes.subscribe(trashes => {
       let existingMarkers: Marker[] = [];
@@ -98,7 +102,6 @@ export class MapViewComponent implements OnInit {
           let origin: any = waypoints.pop()!.location;
           let destination: any = waypoints.pop()!.location;
 
-
           let request: google.maps.DirectionsRequest = {
             optimizeWaypoints: true,
             destination: destination,
@@ -107,14 +110,11 @@ export class MapViewComponent implements OnInit {
             travelMode: google.maps.TravelMode.DRIVING,
             unitSystem: google.maps.UnitSystem.METRIC,
           };
-          console.log(request);
           this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => {console.log(response); return response.result}));
         }
       }
     });
   }
-
-
 
   newTrash(): void {
     const dialogRef = this.dialog.open(TrashDialogComponent, {
