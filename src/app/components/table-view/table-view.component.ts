@@ -42,7 +42,8 @@ export class TableViewComponent implements AfterViewInit {
     })
     this.sort = new MatSort();
     this.selection = new SelectionModel<Trash>(true, []);
-    this.wasteType = this.collectibleTypes[0].value;
+    this.wasteType = "all";
+    this.updateData();
   }
 
   updateData(){
