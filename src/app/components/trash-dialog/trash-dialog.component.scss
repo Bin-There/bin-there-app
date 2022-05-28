@@ -1,3 +1,8 @@
+#root {
+   width: 70%;
+  minWidth: 610px;
+}
+
 .file-input {
   display: none;
 }
@@ -5,3 +10,24 @@
 .upload-btn {
   margin: 5px;
 }
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 20px;
+}
+
+.image-upload {
+  height: 200px;
+}
+
+.no-file-uploaded {
+  margin: 20px 0;
+}
+
+

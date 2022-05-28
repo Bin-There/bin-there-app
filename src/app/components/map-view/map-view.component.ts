@@ -78,7 +78,6 @@ export class MapViewComponent implements OnInit {
 
   newTrash(): void {
     const dialogRef = this.dialog.open(TrashDialogComponent, {
-      width: '270px',
       data: {
         trash: {
           location: this.newMarker?.position,

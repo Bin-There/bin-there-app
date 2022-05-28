@@ -1,84 +1,73 @@
-<input type="file" class="file-input" accept="image/*" capture="camera"
-       (change)="onFileSelected($event)" #fileUpload>
+<mat-stepper linear>
+  <mat-step label="Choose marker type">
+        <mat-label>Type</mat-label>
+    <section class="example-section">
+        <mat-radio-group class="example-margin"[(ngModel)]="data.trash.entityType">
+          <mat-radio-button class="example-margin" value="bin">Trash bin</mat-radio-button>
+          <mat-radio-button class="example-margin" value="abandoned">Abandoned trash</mat-radio-button>
+          <mat-radio-button class="example-margin" value="collectible">Collectible waste</mat-radio-button>
+        </mat-radio-group>
+    </section>
+    <section class="image-upload">
+        <input type="file" class="file-input" accept="image/*" capture="camera"
+               (change)="onFileSelected($event)" #fileUpload>
 
-<div class="file-upload">
-   <img [src]="data.trash.photoURL" *ngIf="data.trash.photoURL" width="220px"/>
-  <span *ngIf="!data.trash.photoURL">{{ "No file uploaded yet."}}</span>
+        <div class="file-upload">
+          <button mat-mini-fab color="primary" class="upload-btn"
+                  (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+          </button><br/>
+          <img [src]="data.trash.photoURL" *ngIf="data.trash.photoURL" width="220px"/>
+          <span class="no-file-uploaded" *ngIf="!data.trash.photoURL">{{ "No file uploaded yet."}}</span>
 
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-    </button>
-</div>
-<!--<mat-form-field>-->
-<!--  <mat-label>Photo</mat-label>-->
-<!--  <input matInput type="image" cdkFocusInitial [(ngModel)]="data.trash.photoURL" />-->
-<!--</mat-form-field>-->
 
-<mat-form-field appearance="fill">
-  <mat-label>Size</mat-label>
-  <mat-select [(ngModel)]="data.trash.size" >
-    <mat-option *ngFor="let size of sizes" [value]="size.value">
-      {{size.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+        </div>
+    </section>
+    <div>
+        <button mat-button color="primary" matStepperNext>Next</button>
+        <button mat-button color="secondary" (click)="cancel()">Cancel</button>
+      </div>
+  </mat-step>
+  <mat-step label="Fill details">
+    <mat-form-field appearance="fill">
+      <mat-label>Size</mat-label>
+      <mat-select [(ngModel)]="data.trash.size" >
+        <mat-option *ngFor="let size of sizes" [value]="size.value">
+          {{size.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br/>
+    <section class="section-bin">
+      <mat-form-field appearance="fill" *ngIf="data.trash.entityType=='bin'">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="data.trash.size" >
+          <mat-option value="ready">Ready</mat-option>
+          <mat-option value="full">Full</mat-option>
+          <mat-option value="ready">Overfilled</mat-option>
+        </mat-select>
+      </mat-form-field><br/>
+    </section>
+    <mat-form-field appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="data.trash.type">
+        <mat-option *ngFor="let type of getTypes()"  [value]="type.value">
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br/>
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" [(ngModel)]="data.trash.note"></textarea>
+    </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button [mat-dialog-close]="{ trash: data.trash }" color="primary">Submit</button>
+        <button mat-button (click)="cancel()">Cancel</button>
+      </div>
+  </mat-step>
+</mat-stepper>
 
-<mat-form-field appearance="fill">
-  <mat-label>Type</mat-label>
-  <mat-select [(ngModel)]="data.trash.type">
-    <mat-option *ngFor="let type of types"  [value]="type.value">
-      {{type.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<mat-form-field>
-  <mat-label>Note</mat-label>
-  <textarea matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5" [(ngModel)]="data.trash.note"></textarea>
-</mat-form-field>
-
-<!--<mat-form-field class="example-chip-list" appearance="fill">-->
-<!--  <mat-label>Favorite Fruits</mat-label>-->
-<!--  <mat-chip-list #chipList aria-label="Fruit selection">-->
-<!--    <mat-chip-->
-<!--      *ngFor="let tag of tags"-->
-<!--      (removed)="remove(tag)">-->
-<!--      {{tag}}-->
-<!--      <button matChipRemove>-->
-<!--        <mat-icon>cancel</mat-icon>-->
-<!--      </button>-->
-<!--    </mat-chip>-->
-<!--    <input-->
-<!--      placeholder="New tag..."-->
-<!--      #tagInput-->
-<!--      [formControl]="tagCtrl"-->
-<!--      [matAutocomplete]="auto"-->
-<!--      [matChipInputFor]="chipList"-->
-<!--      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
-<!--      (matChipInputTokenEnd)="add($event)">-->
-<!--  </mat-chip-list>-->
-<!--  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">-->
-<!--    <mat-option *ngFor="let tag of filteredFruits | async" [value]="tag">-->
-<!--      {{tag}}-->
-<!--    </mat-option>-->
-<!--  </mat-autocomplete>-->
-<!--</mat-form-field>-->
-
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="{ trash: data.trash }">OK</button>
-  <button mat-button (click)="cancel()">Cancel</button>
-
-  <button
-    *ngIf="data.enableDelete"
-    mat-fab
-    color="primary"
-    aria-label="Delete"
-    [mat-dialog-close]="{ trash: data.trash, delete: true }">
-    <mat-icon>delete</mat-icon>
-  </button>
-</div>

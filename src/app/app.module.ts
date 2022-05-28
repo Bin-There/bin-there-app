@@ -40,6 +40,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
 import { StorageService } from './shared/services/storage.service';
 import {MatSortModule} from "@angular/material/sort";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import {MatSortModule} from "@angular/material/sort";
     MatOptionModule,
     FormsModule,
     MatSortModule,
-
+    MatStepperModule,
+    MatRadioModule,
   ],
   providers: [AuthService, StorageService],
   bootstrap: [AppComponent]
