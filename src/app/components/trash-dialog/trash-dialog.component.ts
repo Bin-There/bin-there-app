@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Trash} from "../trash/trash";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize, Observable} from "rxjs";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-trash-dialog',
@@ -10,6 +11,7 @@ import {finalize, Observable} from "rxjs";
   styleUrls: ['./trash-dialog.component.scss']
 })
 export class TrashDialogComponent implements OnInit {
+  public trashForm: FormGroup|null = null;
   public sizes = [
     {value: "small", viewValue: "Small"},
     {value: "medium", viewValue: "Medium"},
@@ -20,10 +22,10 @@ export class TrashDialogComponent implements OnInit {
     {value: "metal", viewValue: "Metal"},
     {value: "plastic", viewValue: "Plastic"},
     {value: "glass", viewValue: "Glass"},
-    {value: "composable", viewValue: "Composable waste"},
+    {value: "composable", viewValue: "Compostable waste"},
     {value: "debris", viewValue: "Debris"},
     {value: "oil", viewValue: "Used oil"},
-    {value: "electronic_waste", viewValue: "electronic waste"},
+    {value: "electronic_waste", viewValue: "Electronic waste"},
   ];
   public binTypes = [
     {value: "mixed", viewValue: "Mixed"},
@@ -31,6 +33,7 @@ export class TrashDialogComponent implements OnInit {
     {value: "plastic", viewValue: "Plastic"},
     {value: "glass", viewValue: "Glass"},
     {value: "paper", viewValue: "Paper"},
+    {value: "compostable", viewValue: "Compostable waste"},
   ];
   public abandonedTypes = [
     {value: "mixed", viewValue: "Mixed"},
@@ -39,9 +42,8 @@ export class TrashDialogComponent implements OnInit {
   ]
   private trashPhotoDownloadURL: Observable<string> | null = null;
   ngOnInit(): void {
-  }
 
-  private backupTrash: Partial<Trash> = { ...this.data.trash };
+  }
 
   constructor(
     public dialogRef: MatDialogRef<TrashDialogComponent>,
@@ -84,7 +86,6 @@ export class TrashDialogComponent implements OnInit {
       .subscribe(url => {
       });
   }
-
 }
 
 export interface TrashDialogData {
