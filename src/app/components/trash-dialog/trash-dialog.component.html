@@ -40,10 +40,10 @@
     <section class="section-bin">
       <mat-form-field appearance="fill" *ngIf="data.trash.entityType=='bin'">
         <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="data.trash.size" >
+        <mat-select [(ngModel)]="data.trash.status" >
           <mat-option value="ready">Ready</mat-option>
           <mat-option value="full">Full</mat-option>
-          <mat-option value="ready">Overfilled</mat-option>
+          <mat-option value="overfilled">Overfilled</mat-option>
         </mat-select>
       </mat-form-field><br/>
     </section>

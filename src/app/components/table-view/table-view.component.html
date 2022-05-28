@@ -19,20 +19,31 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="photo" class="text-center">
+    <ng-container matColumnDef="entityType" class="text-center">
       <th mat-header-cell *matHeaderCellDef>
-        Photo
+        Collection type
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <img class="waste-image" src="{{ resources.getImageForEntityType(element)}}" alt="entityType">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="entityStatus" class="text-center">
+      <th mat-header-cell *matHeaderCellDef>
+        Status
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <img class="waste-image" src="{{ resources.getImageForEntityStatus(element)}}" alt="entityStatus">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type" class="text-center">
+      <th mat-header-cell *matHeaderCellDef>
+        Waste Type
       </th>
       <td mat-cell *matCellDef="let element">
         <img class="waste-image" src="{{ resources.getImageForType(element)}}" alt="image">
       </td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="type" sortActionDescription="Sort by Type">
-        Type
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
     </ng-container>
 
     <ng-container matColumnDef="size">

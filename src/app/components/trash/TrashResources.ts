@@ -20,6 +20,33 @@ export class TrashResources {
     return 'assets/bin_mix_01.svg';
   }
 
+  public getImageForEntityType(trash: Trash): string {
+
+    switch (trash.entityType) {
+      case 'bin' :
+        return 'assets/entity_bin.svg';
+      case 'mixed' :
+        return 'assets/entity_mixed.svg';
+      case 'collectible' :
+        return 'assets/entity_collectible.svg';
+    }
+
+    return 'assets/entity_mixed.svg';
+  }
+
+  public getImageForEntityStatus(trash: Trash): string {
+
+    switch (trash.status) {
+      case 'ready' :
+        return 'assets/status_empty.svg';
+      case 'full' :
+        return 'assets/status_full.svg';
+      case 'overfilled' :
+        return 'assets/status_overloaded.svg';
+    }
+
+    return 'assets/status_half.svg';
+  }
   public getDateTimeString(value: any) : string{
 
     if(value)

@@ -14,7 +14,7 @@ import {TrashResources} from "../trash/TrashResources";
   styleUrls: ['./table-view.component.scss']
 })
 export class TableViewComponent implements AfterViewInit {
-  displayedColumns: string[] = ['select', 'photo', 'type' , 'size', 'date'];
+  displayedColumns: string[] = ['select','entityType','entityStatus', 'type' , 'size', 'date'];
   dataSource: MatTableDataSource<Trash> = new MatTableDataSource<Trash>([]);
   selection:SelectionModel<Trash> = new SelectionModel<Trash>(true, []);
   resources:TrashResources = new TrashResources();

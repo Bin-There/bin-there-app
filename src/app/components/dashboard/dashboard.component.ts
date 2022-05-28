@@ -12,7 +12,7 @@ import {TrashResources} from "../trash/TrashResources";
 })
 export class DashboardComponent implements OnInit {
 
-  displayedColumns: string[] = ['type' , 'size', 'date'];
+  displayedColumns: string[] = ['entityType','entityStatus', 'type' , 'size', 'date'];
   dataSource: MatTableDataSource<Trash> = new MatTableDataSource<Trash>([]);
   resources: TrashResources = new TrashResources();
 
