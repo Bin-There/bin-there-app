@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/map', pathMatch: 'full' },
 
   // App
-  { path: 'dashboard', component: DashboardComponent},//, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'table', component: TableViewComponent },
   { path: 'map', component: MapViewComponent },
 
