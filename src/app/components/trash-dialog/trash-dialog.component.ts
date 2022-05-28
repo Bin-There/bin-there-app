@@ -86,7 +86,6 @@ export class TrashDialogComponent implements OnInit {
       .subscribe(url => {
       });
   }
-
 }
 
 export interface TrashDialogData {

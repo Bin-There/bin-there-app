@@ -74,7 +74,7 @@
     </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button [mat-dialog-close]="{ trash: data.trash }" color="primary" [disabled]="formInvalid()">Submit</button>
+        <button mat-button [mat-dialog-close]="{ trash: data.trash }" color="primary" [disabled]="usize.invalid || utype.invalid">Submit</button>
         <button mat-button (click)="cancel()">Cancel</button>
       </div>
   </mat-step>
