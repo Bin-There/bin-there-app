@@ -1,9 +1,12 @@
 <div *ngIf="apiLoaded | async" id="root">
     <google-map id="map" width="100%" height="100%" (mapClick)="click($event)" position="absolute"
     [options]="options">
-        <map-marker *ngFor="let markerPosition of markerPositions"
-              [position]="markerPosition"
-              [options]="markerOptions"></map-marker>
+      <map-marker-clusterer imagePath="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m">
+        <map-marker *ngFor="let marker of existingMarkers"
+                    [position]="marker.position"
+                    [options]="marker.options"></map-marker>
+      </map-marker-clusterer>
+      <map-marker [position]="newMarker.position" [options]="newMarker.options" *ngIf="newMarker" ></map-marker>
     </google-map>
     <button mat-fab color="primary" class="trash-add" (click)="newTrash()" *ngIf="isLogged"><mat-icon>add</mat-icon></button>
 </div>

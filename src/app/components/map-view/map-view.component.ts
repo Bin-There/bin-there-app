@@ -10,6 +10,7 @@ import {TrashDialogComponent, TrashDialogResult} from "../trash-dialog/trash-dia
 import {MatDialog} from "@angular/material/dialog";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AuthService} from "../../shared/services/auth.service";
+import {Marker} from "./marker";
 
 @Component({
   selector: 'app-map-view',
@@ -28,11 +29,13 @@ export class MapViewComponent implements OnInit {
     disableDefaultUI: true,
     center: {lat: 46.770161693428626, lng: 23.58938212082915},
     mapId: "7373314d7db03f50",
+
     maxZoom: 30,
     minZoom: 8
   }
 
-  markerPositions: google.maps.LatLngLiteral[] = [];
+  existingMarkers: Marker[] = [];
+  newMarker: Marker | null = null;
 
   constructor(httpClient: HttpClient,
               private readonly geolocation: GeolocationService,
@@ -48,12 +51,25 @@ export class MapViewComponent implements OnInit {
     geolocation.subscribe(coordinates => {
       this.myMap?.panTo(new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude));
     });
+    _storageService.ObservableTrashes.subscribe(trashes => {
+      let existingMarkers: Marker[] = [];
+      trashes.map(value => {
+        existingMarkers.push({
+          position: value.location ? value.location : {lat: 46.770161693428626, lng: 23.58938212082915},
+          options: {draggable: false, icon:"/assets/bin_mix_01.svg"}
+        })
+      })
+      this.existingMarkers = existingMarkers;
+    })
     this.isLogged = this._authService.isLoggedIn;
   }
 
   click(event: google.maps.MapMouseEvent) {
     if (event?.latLng != null) {
-      this.markerPositions.push(event.latLng.toJSON());
+      this.newMarker = {
+        position: event.latLng.toJSON(),
+        options: {draggable: true},
+      };
     }
   }
 
@@ -65,9 +81,10 @@ export class MapViewComponent implements OnInit {
       width: '270px',
       data: {
         trash: {
-          location: this.markerPositions.pop(),
+          location: this.newMarker,
           userId: this._authService.userData.uid,
-          date: new Date()
+          date: new Date(),
+          status: 'pending'
         },
       },
     });

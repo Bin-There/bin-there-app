@@ -8,4 +8,5 @@ export interface Trash {
   note: string;
   userId: string;
   date: Date;
+  status: string;
 }
