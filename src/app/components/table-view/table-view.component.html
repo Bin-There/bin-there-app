@@ -10,7 +10,7 @@ fgsdfgsdfgdsfg
                       [aria-label]="checkboxLabel()">
         </mat-checkbox>
       </th>
-      <td mat-cell *matCellDef="let row">
+      <td class="selection" mat-cell *matCellDef="let row">
         <mat-checkbox (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(row) : null"
                       [checked]="selection.isSelected(row)"
@@ -51,7 +51,7 @@ fgsdfgsdfgdsfg
         Size
       </th>
       <td mat-cell *matCellDef="let element">
-        <div>{{element.size}}</div>
+        <div class="selection">{{element.size}}</div>
       </td>
     </ng-container>
 

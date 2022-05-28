@@ -45,7 +45,7 @@ export class TrashResources {
         return 'assets/status_overloaded.svg';
     }
 
-    return 'assets/status_half.svg';
+    return 'assets/not_applicable.svg';
   }
   public getDateTimeString(value: any) : string{
 
