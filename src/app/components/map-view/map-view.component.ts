@@ -12,6 +12,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AuthService} from "../../shared/services/auth.service";
 import {Marker} from "./marker";
 import {ActivatedRoute, Router} from "@angular/router";
+import {TrashResources} from "../trash/TrashResources";
 
 @Component({
   selector: 'app-map-view',
@@ -38,7 +39,7 @@ export class MapViewComponent implements OnInit {
   existingMarkers: Marker[] = [];
   newMarker: Marker | null = null;
   public directionsResults$: Observable<google.maps.DirectionsResult|undefined> | null = null;
-
+  resources: TrashResources = new TrashResources();
   constructor(httpClient: HttpClient,
               private readonly geolocation: GeolocationService,
               private dialog: MatDialog,
@@ -62,7 +63,7 @@ export class MapViewComponent implements OnInit {
       trashes.map(value => {
         existingMarkers.push({
           position: value.location ? value.location : {lat: 46.770161693428626, lng: 23.58938212082915},
-          options: {draggable: false, icon:"/assets/bin_mix_01.svg"}
+          options: {draggable: false, icon: this.resources.getImageForType(value)}
         })
       })
       this.existingMarkers = existingMarkers;
