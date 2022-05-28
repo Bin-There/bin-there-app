@@ -10,12 +10,19 @@
     </button>
 
     <div class="actions">
-      <button mat-mini-fab color="secondary" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn" ><mat-icon>logout</mat-icon></button>
+      <button mat-mini-fab color="secondary" (click)="authService.SignOut()" *ngIf="authService.isLoggedIn"
+              matTooltip="Log out.">
+        <mat-icon>logout</mat-icon>
+      </button>
 
-      <button mat-mini-fab color="secondary" routerLink="/sign-in" *ngIf="!authService.isLoggedIn" ><mat-icon>login</mat-icon></button>
+      <button mat-mini-fab color="secondary" routerLink="/sign-in" *ngIf="!authService.isLoggedIn"
+              matTooltip="You are currently not logged in, please log in.">
+        <mat-icon>login</mat-icon>
+      </button>
 
-      <button mat-mini-fab color="secondary"  routerLink="/dashboard" *ngIf="authService.userData as user">
-        <img class="user-photo" src="{{user.photoURL ? user.photoURL : '/assets/dummy-user.png'}}" alt="user image">
+      <button mat-mini-fab color="secondary" routerLink="/dashboard" *ngIf="authService.userData as user">
+        <img class="user-photo" src="{{user.photoURL ? user.photoURL : '/assets/dummy-user.png'}}" alt="user image"
+             matTooltip="{{user.displayName ? 'Go to ' + user.displayName + 's dashboard.' : 'User'}}">
       </button>
     </div>
 

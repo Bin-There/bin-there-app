@@ -42,6 +42,7 @@ import { StorageService } from './shared/services/storage.service';
 import {MatSortModule} from "@angular/material/sort";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import {MatRadioModule} from "@angular/material/radio";
     MatSortModule,
     MatStepperModule,
     MatRadioModule,
+    MatTooltipModule,
   ],
   providers: [AuthService, StorageService],
   bootstrap: [AppComponent]
