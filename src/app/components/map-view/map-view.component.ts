@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {MapInfoWindow, MapMarker, GoogleMap} from '@angular/google-maps';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {AppConfig} from 'src/environments/app-config.environment';
+import {environment} from 'src/environments/environment';
 import {GeolocationService} from '@ng-web-apis/geolocation';
 import {Position, StorageService} from 'src/app/shared/services/storage.service';
 import {TrashDialogComponent, TrashDialogResult} from "../trash-dialog/trash-dialog.component";
@@ -42,7 +42,7 @@ export class MapViewComponent implements OnInit {
               private dialog: MatDialog,
               private readonly _storageService: StorageService,
               public readonly _authService: AuthService) {
-    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + AppConfig.maps.mapKey, 'callback')
+    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + environment.maps.mapKey, 'callback')
       .pipe(
         map(() => true),
         catchError(() => of(false)),
