@@ -17,12 +17,34 @@
 
   <mat-card>
     <mat-card-title>My activity</mat-card-title>
+
     <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8">
+
+      <ng-container matColumnDef="entityType" class="text-center">
+        <th mat-header-cell *matHeaderCellDef>
+          Collection type
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img class="waste-image" src="{{ resources.getImageForEntityType(element)}}" alt="entityType">
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="entityStatus" class="text-center">
+        <th mat-header-cell *matHeaderCellDef>
+          Status
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img class="waste-image" src="{{ resources.getImageForEntityStatus(element)}}" alt="entityStatus">
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="type" sortActionDescription="Sort by Type">
           Type
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        <td mat-cell *matCellDef="let element">
+          <img class="waste-image" src="{{ resources.getImageForType(element)}}" alt="image">
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="size">
@@ -38,7 +60,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header="date" sortActionDescription="Sort by Date">
           Date
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        <td mat-cell *matCellDef="let element"> {{resources.getDateTimeString(element.date)}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

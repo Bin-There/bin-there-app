@@ -35,11 +35,10 @@ export class AuthService {
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['map']);
-        });
-        this.SetUserData(result.user);
+      .then(async (result) => {
+
+        await this.SetUserData(result.user);
+        await this.router.navigate(['/']);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -81,13 +80,13 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null && user.emailVerified !== false;
   }
   // Sign in with Google
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+    return this.AuthLogin(new auth.GoogleAuthProvider()).then(async (res: any) => {
       if (res) {
-        this.router.navigate(['dashboard']);
+        await this.router.navigate(['']);
       }
     });
   }
@@ -95,11 +94,9 @@ export class AuthService {
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
-        });
-        this.SetUserData(result.user);
+      .then(async (result) => {
+        await this.SetUserData(result.user);
+        await this.router.navigate(['/']);
       })
       .catch((error) => {
         window.alert(error);
@@ -125,9 +122,10 @@ export class AuthService {
   }
   // Sign out
   SignOut() {
-    return this.afAuth.signOut().then(() => {
+    return this.afAuth.signOut().then(async () => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.userData = null;
+      await this.router.navigate(['sign-in']);
     });
   }
 }
